@@ -36,7 +36,7 @@ IRrecv irrecv(RECV_PIN);
 
 decode_results results;
 
-
+boolean first;
 
 
 void setup()
@@ -62,25 +62,28 @@ void loop()
             digitalWrite(LT_MOTOR, HIGH);
             delay(100);
             break;
-        case CODE_FW: //engega els dos motors, per fer que el cotxe es mogui endavant
+        case CODE_FW: //engega els dos motors, per fer que el cotxe es mogui endavant            
             if(LT_POWER>RT_POWER){
-                digitalWrite(RT_MOTOR, HIGH);
+                analogWrite(LT_MOTOR, 255);
                 delay(ON_TIME);
-                digitalWrite(LT_MOTOR, HIGH);
-                delay(ON_TIME*(LT_POWER/RT_POWER));
+                analogWrite(LT_MOTOR, 127);
+                analogWrite(RT_MOTOR, 255);
+                delay(ON_TIME*2*(LT_POWER/RT_POWER));
             } else { 
-                digitalWrite(LT_MOTOR, HIGH);
+                analogWrite(RT_MOTOR, 255);
                 delay(ON_TIME);
-                digitalWrite(RT_MOTOR, HIGH);
-                delay(ON_TIME*(RT_POWER/LT_POWER));
-            }
+                analogWrite(RT_MOTOR, 127);
+                analogWrite(LT_MOTOR, 255);
+                delay(ON_TIME*2*(RT_POWER/LT_POWER));
             analogWrite(LT_MOTOR, LT_POWER);
             analogWrite(RT_MOTOR, RT_POWER);
             delay(100);
+            }
             break;
         case CODE_REPEAT: 
             break; //si rep el codi de repeticio no fa res, ni apaga ni engega
         default:
+            
             digitalWrite(LT_MOTOR, LOW);
             digitalWrite(RT_MOTOR, LOW); // si rep algun altre codi apaga els motors
             break;
