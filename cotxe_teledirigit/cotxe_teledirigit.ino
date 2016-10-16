@@ -36,12 +36,13 @@ IRrecv irrecv(RECV_PIN);
 
 decode_results results;
 
-
+boolean first;
 
 
 void setup()
 {
     irrecv.enableIRIn(); //iniciar sensor IR
+    Serial.begin(9600);
     pinMode(LT_MOTOR, OUTPUT); 
     digitalWrite(LT_MOTOR, LOW); 
     pinMode(RT_MOTOR, OUTPUT); 
@@ -56,20 +57,42 @@ void loop()
         switch (results.value) { //tria la opcio que coincideixi amb el codi redut, si no executa la opcio "default"
         case CODE_LT: 
             digitalWrite(RT_MOTOR, HIGH); //engega el motor dret per tal de que el cotxe giri cap a l'esquerra
+            Serial.println("esquerra");
             delay(100);
             break;
         case CODE_RT: //engega el motor esquerre per tal de que el cotxe giri cap a la dreta
             digitalWrite(LT_MOTOR, HIGH);
+            Serial.println("dreta");
             delay(100);
             break;
         case CODE_FW: //engega els dos motors, per fer que el cotxe es mogui endavant
+            
+            if(LT_POWER>RT_POWER){
+                Serial.println("lt major a rt");
+                digitalWrite(LT_MOTOR, HIGH);
+                delay(ON_TIME);
+                Serial.println("engegant rt");
+                analogWrite(LT_MOTOR, 127);
+                digitalWrite(RT_MOTOR, HIGH);
+                delay(ON_TIME*2*(RT_POWER/LT_POWER));
+            } else { 
+                Serial.println("rt major a lt");
+                digitalWrite(RT_MOTOR, HIGH);
+                delay(ON_TIME);
+                Serial.println("engegant lt");
+                analogWrite(RT_MOTOR, 127);
+                digitalWrite(LT_MOTOR, HIGH);
+                delay(ON_TIME*2*(LT_POWER/RT_POWER));
+            Serial.println("tots dos");
             analogWrite(LT_MOTOR, LT_POWER);
             analogWrite(RT_MOTOR, RT_POWER);
             delay(100);
+            }
             break;
         case CODE_REPEAT: 
             break; //si rep el codi de repeticio no fa res, ni apaga ni engega
         default:
+            
             digitalWrite(LT_MOTOR, LOW);
             digitalWrite(RT_MOTOR, LOW); // si rep algun altre codi apaga els motors
             break;
