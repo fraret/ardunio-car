@@ -23,15 +23,16 @@
 #ifndef CODIS_H
 #define CODIS_H
 
-#define LT_MOTOR 9 //Pin del motor esquerre
-#define RT_MOTOR 10 //Pin del motor dret
-#define LT_POWER 255 //Potencia del motor esquerre (de 0 a 255)
+#define LT_MOTOR 10 //Pin del motor esquerre
+#define RT_MOTOR 9 //Pin del motor dret
+#define LT_POWER 180 //Potencia del motor esquerre (de 0 a 255)
 #define RT_POWER 255 //Potencia del motor esquerre (de 0 a 255)
+#define ON_TIME 1000 //Temps en ms que els dos motors estan a maxima potencia per tal de que  arranquin
 
 #define CODE_LT 0x4EBA0422 //Codi per anar cap a l'esquerra
 #define CODE_RT 0x5EA08104 //Codi per anar cap a la dreta
 #define CODE_FW 0x9986485A //Codi per anar endavant
-#define CODE_REPEAT 0xFFFFFFF //Codi de repetici del comandament (si en te)
+#define CODE_REPEAT 0x4AB0F7B6 //Codi de repetici del comandament (si en te)
 
 #define CICLES 20000 //Quants cicles ha de passar sense senyal per tal de que el cotxe s'aturi?
 

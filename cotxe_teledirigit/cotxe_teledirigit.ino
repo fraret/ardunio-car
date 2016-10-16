@@ -63,6 +63,17 @@ void loop()
             delay(100);
             break;
         case CODE_FW: //engega els dos motors, per fer que el cotxe es mogui endavant
+            if(LT_POWER>RT_POWER){
+                digitalWrite(RT_MOTOR, HIGH);
+                delay(ON_TIME);
+                digitalWrite(LT_MOTOR, HIGH);
+                delay(ON_TIME*(LT_POWER/RT_POWER));
+            } else { 
+                digitalWrite(LT_MOTOR, HIGH);
+                delay(ON_TIME);
+                digitalWrite(RT_MOTOR, HIGH);
+                delay(ON_TIME*(RT_POWER/LT_POWER));
+            }
             analogWrite(LT_MOTOR, LT_POWER);
             analogWrite(RT_MOTOR, RT_POWER);
             delay(100);
