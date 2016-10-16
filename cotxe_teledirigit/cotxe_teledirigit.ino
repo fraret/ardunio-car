@@ -69,20 +69,20 @@ void loop()
             
             if(LT_POWER>RT_POWER){
                 Serial.println("lt major a rt");
-                digitalWrite(LT_MOTOR, HIGH);
+                analogWrite(LT_MOTOR, 255);
                 delay(ON_TIME);
                 Serial.println("engegant rt");
                 analogWrite(LT_MOTOR, 127);
-                digitalWrite(RT_MOTOR, HIGH);
-                delay(ON_TIME*2*(RT_POWER/LT_POWER));
+                analogWrite(RT_MOTOR, 255);
+                delay(ON_TIME*2*(LT_POWER/RT_POWER));
             } else { 
                 Serial.println("rt major a lt");
-                digitalWrite(RT_MOTOR, HIGH);
+                analogWrite(RT_MOTOR, 255);
                 delay(ON_TIME);
                 Serial.println("engegant lt");
                 analogWrite(RT_MOTOR, 127);
-                digitalWrite(LT_MOTOR, HIGH);
-                delay(ON_TIME*2*(LT_POWER/RT_POWER));
+                analogWrite(LT_MOTOR, 255);
+                delay(ON_TIME*2*(RT_POWER/LT_POWER));
             Serial.println("tots dos");
             analogWrite(LT_MOTOR, LT_POWER);
             analogWrite(RT_MOTOR, RT_POWER);
