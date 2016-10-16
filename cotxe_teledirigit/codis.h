@@ -23,8 +23,8 @@
 #ifndef CODIS_H
 #define CODIS_H
 
-#define LT_MOTOR 12 //Pin del motor esquerre
-#define RT_MOTOR 13 //Pin del motor dret
+#define LT_MOTOR 9 //Pin del motor esquerre
+#define RT_MOTOR 10 //Pin del motor dret
 #define LT_POWER 255 //Potencia del motor esquerre (de 0 a 255)
 #define RT_POWER 255 //Potencia del motor esquerre (de 0 a 255)
 
